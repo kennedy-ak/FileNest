@@ -6,6 +6,6 @@ Welcome
 
 {% block content %}
 <h1> Welcome {{new_user.username}}!</h1>
-<p> Your account has successfully been created kindly check your email to verify</p>
+<p> Your account has successfully been created and you can now <a href="{% url 'login'%}">Log-in</a></p>
 
 {% endblock content%}
