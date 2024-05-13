@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+
+{% block content %}
+
+<h1> Welcome to the Registration Page</h1>
+
+{% for message in messages %}
+
+<h5>{{message}}</h5>
+{% endfor %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="username" placeholder="Username" ><br> <br>
+    <input type="email" name ="email"placeholder="Email" ><br><br>
+    
+    <input type="password" name="password" placeholder="Password" > <br><br>
+    <input type="password" name="password2" placeholder="Confirm Password" ><br>
+
+    <button type="submit" >Sign Up</button><br><br>
+    <div class="text-center mt-5 space-x-2">
+        <p class="text-base"> Do you have an account? <a href="{% url 'login'%}"> Login </a></p>
+    </div>
+</form>cd
+
+{% endblock content %}
