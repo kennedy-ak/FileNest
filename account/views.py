@@ -1,19 +1,26 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from .models import User,Profile
-from .forms import LoginForm
+from .forms import LoginForm,SetPasswordForm,PasswordResetForm
 from django.db import transaction
 from django.contrib.auth import  authenticate, login,logout
-
+from django.contrib.auth.decorators import  login_required
 from django.template.loader import  render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes,force_str
 from django.core.mail import EmailMessage
-
-
 from .tokens import account_activation_token
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView ,PasswordResetConfirmView,    PasswordResetCompleteView
+from django.urls import reverse_lazy
+
+
+
+
+
+
 # Create your views here.
+@login_required(login_url='login')
 def dashboard(request):
     return render(request, "account/dashboard.html")
 
@@ -98,7 +105,56 @@ def user_register(request):
             return redirect('register')
     return render(request, "account/register.html")
 
+
+
+@login_required(login_url='login')
 def user_logout(request):
     logout(request)
     return redirect('login')
     
+@login_required(login_url='login')
+def change_password_done(request):
+    return render(request,'account/password_change_done.html')  
+
+
+
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        form = SetPasswordForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page or inform the user the password has been changed
+            return redirect('password_change_done')  # Ensure this URL is defined in your URLconf
+    else:
+        form = SetPasswordForm(user=request.user)
+    return render(request, 'account/change_password.html', {'form': form})
+
+
+
+
+def password_reset(request):
+    form = PasswordResetForm()
+    return render(request,'account/password_reset.html',{'form':form})
+
+
+def passwordResetConfirm(request,uidb64,token):
+    return redirect('login')
+
+
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'account/password_reset.html'
+    form_class = PasswordResetForm
+    success_url = reverse_lazy('password_reset_done')
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'account/password_reset_done.html'
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'account/password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'account/password_reset_complete.html'

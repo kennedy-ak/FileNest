@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "account"
+    "account",
+      'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -136,10 +137,13 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'akogokennedy@gmail.com'  # Replace with your Gmail address
-EMAIL_HOST_PASSWORD = 'xxxxx'     # Replace with your Gmail app password
+EMAIL_HOST_PASSWORD = 'xxxxxxxxx'      #Replace with your Gmail app password
 
 
 
 
 
-EMAIL_HOST_PASSWORD = 'xxxxx'
+EMAIL_HOST_PASSWORD = 'xxxxxx'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_URL = 'login'

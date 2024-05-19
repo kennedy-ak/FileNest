@@ -8,5 +8,8 @@ Dashboard
 {% block content %}
 
 <h1> Welcome to the Dashboard {{request.user.username}} </h1>
+
+<li><a href="{% url 'password_change'%}">Change Password</a></li>
+
 <li><a href="logout"> Log Out</a></li>
 {% endblock content %}
