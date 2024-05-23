@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "account",
       'crispy_forms',
+   
 ]
 
 MIDDLEWARE = [
@@ -112,12 +113,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-
+import os
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #
 
@@ -137,13 +141,14 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'akogokennedy@gmail.com'  # Replace with your Gmail address
-EMAIL_HOST_PASSWORD = 'xxxxxxxxx'      #Replace with your Gmail app password
+EMAIL_HOST_PASSWORD = 'XX'     # Replace with your Gmail app password
 
 
 
 
 
-EMAIL_HOST_PASSWORD = 'xxxxxx'
-
+EMAIL_HOST_PASSWORD = 'XXXXX'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
+
+ADMIN_LOGIN_URL = '/admin-login/'

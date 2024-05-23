@@ -1,12 +1,24 @@
 from django import forms
-from .models import User
+from .models import User,File
 from django.contrib.auth.forms import SetPasswordForm as BaseSetPasswordForm
 
 from django.contrib.auth.forms import PasswordResetForm
 
+
+class FileUploadForm(forms.ModelForm):
+    class Meta:
+        model = File
+        fields = ['title', 'description', 'file']
+        
+        
+class AdminLoginForm(forms.Form):
+    username = forms.CharField(max_length=150)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput) # setting it as password
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
 class SetPasswordForm(BaseSetPasswordForm):
@@ -38,3 +50,7 @@ class PasswordResetForm(PasswordResetForm):
         max_length=254,
         widget=forms.EmailInput(attrs={'autocomplete': 'email', 'class': 'form-control'}),
     )
+    
+    
+class EmailFileForm(forms.Form):
+    recipient_email = forms.EmailField(label="Recipient's Email")

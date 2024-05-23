@@ -1,13 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "account/styles.css" %}">
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
 
-    <h1>Hello World</h1>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href=""><img src="{% static 'images/F.png' %}" alt="Chesterbrook Academy"></a>
+            </div>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="#">About</a></li>
+               
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <div class="nav-button">
+                <a href="{% url 'register' %}">
+                    <button>Sign Up</button>
+                </a>
+                
+                <a href="{% url 'login' %}">
+                    <button>Log-in</button>
+                </a>
+                <a href="{% url 'admin_login' %}">
+                    <button>Admin</button>
+                </a>
+            </div>
+        </nav>
+    </header>
     {% block content %}{% endblock content %}
 </body>
 </html>

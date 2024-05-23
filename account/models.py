@@ -12,3 +12,23 @@ class Profile(models.Model):
     
     def str(self):
         return f'Profile for user {self.user.username}'
+    
+from django.contrib.auth.models import User
+
+class File(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    file = models.FileField(upload_to='uploads/')
+    upload_date = models.DateTimeField(auto_now_add=True)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+class FileDownload(models.Model):
+    file = models.ForeignKey(File, on_delete=models.CASCADE)
+    download_count = models.PositiveIntegerField(default=0)
+    email_sent_count = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.file.title} - Downloads: {self.download_count}, Emails Sent: {self.email_sent_count}"

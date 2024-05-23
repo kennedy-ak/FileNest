@@ -1,0 +1,57 @@
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
+
+def register(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        
+        if password == password2:
+            if User.objects.filter(email=email).exists():
+                messages.info(request, 'Email already exists')
+                return redirect('register')
+            else:
+                user = User.objects.create_user(email=email, password=password, is_active=False)  # Mark user as inactive until email verification
+                user.save()
+
+                # Generate verification token
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                
+                # Send verification email
+                verification_link = request.build_absolute_uri(reverse('verify_email', kwargs={'uidb64': uid, 'token': token}))
+                email_subject = 'Verify your email address'
+                email_message = render_to_string('verification_email.html', {'user': user, 'verification_link': verification_link})
+                send_mail(email_subject, email_message, 'from@example.com', [user.email])
+
+                messages.info(request, 'Please check your email to verify your account')
+                return redirect('login')
+        else:
+            messages.error(request, 'Passwords do not match')
+            return redirect('register')
+    
+    return render(request, 'register.html')
+
+def verify_email(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True  # Mark user as active after email verification
+        user.save()
+        messages.success(request, 'Your email has been verified. You can now login.')
+        return redirect('login')
+    else:
+        messages.error(request, 'Invalid verification link')
+        return redirect('login')
+

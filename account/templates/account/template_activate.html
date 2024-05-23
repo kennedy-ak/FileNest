@@ -4,4 +4,6 @@ Hi {{ user.username }},
 Please click on the link below to confirm your registration:
 
 {{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+<p><em>Note:</em> If the link is not clickable, copy and paste it into your browser's address bar.</p>
+<p>Thank you!</p>
 {% endautoescape %}

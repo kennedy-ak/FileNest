@@ -9,6 +9,23 @@ Dashboard
 
 <h1> Welcome to the Dashboard {{request.user.username}} </h1>
 
+<form method="get" action="{% url 'dashboard' %}">
+  <input type="text" name="q" placeholder="Search files...">
+  <button type="submit">Search</button>
+</form>
+<h2>Uploaded Files</h2>
+<ul>
+  {% for file in files %}
+    <li>
+      <strong>{{ file.title }}</strong> - {{ file.description }}
+      <br>
+ 
+      <a href="{% url 'download_file' file.id %}" download>Download</a>
+      <a href="{% url 'send_file' file.id %}">Send via Email</a>
+    </li>
+  {% endfor %}
+</ul>
+
 <li><a href="{% url 'password_change'%}">Change Password</a></li>
 
 <li><a href="logout"> Log Out</a></li>

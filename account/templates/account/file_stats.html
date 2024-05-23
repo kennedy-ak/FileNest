@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>File Statistics</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Downloads</th>
+        <th>Emails Sent</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file_download in files %}
+        <tr>
+          <td>{{ file_download.file.title }}</td>
+          <td>{{ file_download.download_count }}</td>
+          <td>{{ file_download.email_sent_count }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button onclick="window.history.back();">Go Back</button>
+{% endblock %}

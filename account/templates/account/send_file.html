@@ -1,0 +1,12 @@
+<!-- templates/account/send_file.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Send File: {{ file.title }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+  </form>
+  <button onclick="window.history.back();">Go Back</button>
+{% endblock %}

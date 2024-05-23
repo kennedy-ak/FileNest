@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Admin Dashboard</h2>
+  <p>Welcome to the admin dashboard!</p>
+
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+{% endif %}
+  <ul>
+    <li><a href="{% url 'upload_file' %}">Upload Files</a></li>
+    <li><a href="{% url 'file_statistics' %}">View File Statistics</a></li>
+    <li><a href="logout"> Log Out</a></li>
+  </ul>
+{% endblock %}
