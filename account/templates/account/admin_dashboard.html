@@ -1,20 +1,30 @@
+{% load static %}
 
-{% extends "base.html" %}
-
-{% block content %}
-  <h2>Admin Dashboard</h2>
-  <p>Welcome to the admin dashboard!</p>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'account/dash.css' %}">
+  <title>Dashboard</title>
+</head>
+<body>
+<div class="container">
+  <h2>Welcome to the Admin Dashboard</h2>
+  
   {% if messages %}
-  <ul class="messages">
+    <ul class="messages">
       {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
       {% endfor %}
-  </ul>
-{% endif %}
+    </ul>
+  {% endif %}
+  
   <ul>
     <li><a href="{% url 'upload_file' %}">Upload Files</a></li>
     <li><a href="{% url 'file_statistics' %}">View File Statistics</a></li>
-    <li><a href="logout"> Log Out</a></li>
+    <li><a href="{% url 'logout' %}">Log Out</a></li>
   </ul>
-{% endblock %}
+</div>
+</body>
+</html>

@@ -1,26 +1,33 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}
-Log-in
+  Log-in
 {% endblock title %}
 
-
 {% block content %}
+<div class="container">
+    <h1>Welcome to the Login Page</h1>
+    <div class="profile-pic">
+      <img src="{% static 'images/F.png' %}" alt="Profile Picture">
+    </div>
+    {% for message in messages %}
+    <h5 class="error-message">{{ message }}</h5>
+    {% endfor %}
+  
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_ul }}
+      <input type="submit" value="Login">
+    </form>
+  
+    <p class="text-base">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    <p class="text-base">Forgot your password? <a href="{% url 'password_reset' %}">Reset Password</a></p>
+  </div>
 
-<h1> Welcome to the Login Page</h1>
-
-{% for message in messages %}
-
-<h5>{{message}}</h5>
-{% endfor %}
-<form method ="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-
-    <input type="submit" value="Login">
-    
-</form>
-<p class="text-base"> Do you have an account? <a href="{% url 'register'%}"> register </a></p>
-
-<p class="text-base"> Do you remember your password <a href="{% url 'password_reset'%}"> Forgot password </a></p>
+      <!-- Button for Admin Login -->
+      <div class="admin-login">
+        <a href="{% url 'admin_login' %}" class="admin-login-btn">Admin Login</a>
+    </div>
 {% endblock content %}
+
+

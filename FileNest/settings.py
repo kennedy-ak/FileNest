@@ -134,20 +134,22 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # EMAIL_HOST_PASSWORD = 'google.Tech1'     # Replace with your Gmail app password
 
 
-# EMAIL_HOST_PASSWORD = 'duynqxsmgfwuejmd'
-# PASSWORD_RESET_TIMEOUT = 1440
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'akogokennedy@gmail.com'  # Replace with your Gmail address
-EMAIL_HOST_PASSWORD = 'XX'     # Replace with your Gmail app password
+EMAIL_HOST_PASSWORD = 'Akogo660221.'     # Replace with your Gmail app password
+
+
+
+"coxc xbdg dlxa sshz "
+
+EMAIL_HOST_PASSWORD = 'coxcxbdgdlxasshz'
 
 
 
 
-
-EMAIL_HOST_PASSWORD = 'XXXXX'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 
