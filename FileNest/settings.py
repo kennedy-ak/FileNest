@@ -15,6 +15,25 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# setting up environ variables
+import environ
+
+env = environ.Env()
+
+environ.Env.read_env()
+
+print(env('DATABASE_URL'))
+
+
+
+
+
+
+
+
+
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -23,9 +42,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-o5@az_l&9%gq1$livk5bujhx0w4n^si7t%8d35758w*05-k0n7"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -76,12 +95,23 @@ WSGI_APPLICATION = "FileNest.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
+# render database
+import dj_database_url
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 }
+
+
+
 
 
 # Password validation
@@ -134,18 +164,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # EMAIL_HOST_PASSWORD = 'google.Tech1'     # Replace with your Gmail app password
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'akogokennedy@gmail.com'  # Replace with your Gmail address
-EMAIL_HOST_PASSWORD = 'Akogo660221.'     # Replace with your Gmail app password
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'akogokennedy@gmail.com'  # Replace with your Gmail address
+# EMAIL_HOST_PASSWORD = 'Akogo660221.'     # Replace with your Gmail app password
 
 
 
-"coxc xbdg dlxa sshz "
+# "coxc xbdg dlxa sshz "
 
-EMAIL_HOST_PASSWORD = 'coxcxbdgdlxasshz'
+# EMAIL_HOST_PASSWORD = 'coxcxbdgdlxasshz'
 
 
 
@@ -154,3 +184,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 
 ADMIN_LOGIN_URL = '/admin-login/'
+
+
