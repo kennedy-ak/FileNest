@@ -1,3 +1,41 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'account/dash.css' %}">
+  <title>File Statistics</title>
+</head>
+<body>
+<div class="container">
+  <h2>File Statistics</h2>
+  <table class="stats-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Downloads</th>
+        <th>Emails Sent</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file_download in files %}
+        <tr>
+          <td>{{ file_download.file.title }}</td>
+          <td>{{ file_download.download_count }}</td>
+          <td>{{ file_download.email_sent_count }}</td>
+          <td></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button class="go-back-btn" onclick="window.history.back();">Go Back</button>
+</div>
+</body>
+</html> -->
+
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +54,7 @@
         <th>Title</th>
         <th>Downloads</th>
         <th>Emails Sent</th>
+        <th>Options</th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +63,10 @@
           <td>{{ file_download.file.title }}</td>
           <td>{{ file_download.download_count }}</td>
           <td>{{ file_download.email_sent_count }}</td>
+          <td>
+            <a href="{% url 'edit_file' file_download.file.id %}" class="btn btn-primary btn-sm">Edit</a>
+            <a href="{% url 'delete_file' file_download.file.id %}" class="btn btn-danger btn-sm">Delete</a>
+          </td>
         </tr>
       {% endfor %}
     </tbody>

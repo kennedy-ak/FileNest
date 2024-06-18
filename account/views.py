@@ -290,3 +290,30 @@ def send_file_via_email(request, file_id):
         form = EmailFileForm()
     
     return render(request, 'account/send_file.html', {'form': form, 'file': file})
+
+
+
+
+@login_required(login_url=settings.ADMIN_LOGIN_URL)
+@user_passes_test(is_admin)
+def edit_file(request, file_id):
+    file = get_object_or_404(File, id=file_id)
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES, instance=file)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'File updated successfully.')
+            return redirect('admin_dashboard')
+    else:
+        form = FileUploadForm(instance=file)
+    return render(request, 'account/edit_file.html', {'form': form, 'file': file})
+
+@login_required(login_url=settings.ADMIN_LOGIN_URL)
+@user_passes_test(is_admin)
+def delete_file(request, file_id):
+    file = get_object_or_404(File, id=file_id)
+    if request.method == 'POST':
+        file.delete()
+        messages.success(request, 'File deleted successfully.')
+        return redirect('admin_dashboard')
+    return render(request, 'account/delete_file.html', {'file': file})
