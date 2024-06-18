@@ -1,3 +1,12 @@
+# pylint: disable=import-error
+# Standard library imports
+import os
+from pathlib import Path
+
+# Third-party imports
+import environ
+import dj_database_url
+
 """
 Django settings for FileNest project.
 
@@ -10,13 +19,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # setting up environ variables
-import environ
+
 
 env = environ.Env()
 
@@ -42,7 +51,7 @@ print(env('DATABASE_URL'))
 SECRET_KEY = "django-insecure-o5@az_l&9%gq1$livk5bujhx0w4n^si7t%8d35758w*05-k0n7"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -105,7 +114,7 @@ WSGI_APPLICATION = "FileNest.wsgi.application"
 
 
 # render database
-import dj_database_url
+
 
 DATABASES = {
     'default': dj_database_url.parse(env('DATABASE_URL'))
